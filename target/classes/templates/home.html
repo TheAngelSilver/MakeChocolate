@@ -1,0 +1,58 @@
+<html ng-app="MakeChocolateApp">
+
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="css/make-chocolate.css" rel="stylesheet" type="text/css"/>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="js/make-chocolate.js"></script>
+</head>
+
+
+<body ng-controller="MakeChocolateController" >
+    {{! changing the mustache delimiter so it doesn't conflict with  }}
+    {{! the default angularjs delimeters - https://mustache.github.io/mustache.5.html for more info  }}
+    {{=<% %>=}}
+
+           <center><h1><FONT COLOR="blue" >WELCOME</FONT> <FONT COLOR="brown"> TO</FONT> MAKE <FONT COLOR="490094">CHOCOLATE!</FONT></h1></center>
+    <div style="position: relative; float: left; width: 40%;border: 2px solid black; padding: 10px;">
+                             <h3>HOW MANY CHOCOLATE BARS DO YOU OWN?</h3>
+        <b> <FONT COLOR="blue">Small Bars Owned:</FONT></b>  <span><input type="number" placeholder="X 1kilo" name="smallBars" ng-model="chocolateRequest.smallBars"/></span>&nbsp  {{chocolateRequest.smallBars * 1}} kilos  <br><br>
+       <b> <FONT COLOR="brown">Big Bars Owned:</FONT></b>      <span><input type="number" placeholder="X 5kilos" name="bigBars" ng-model="chocolateRequest.bigBars"/></span>&nbsp  {{chocolateRequest.bigBars *5}} kilos  <br><br>
+
+        <h3>HOW MUCH CHOCOLATE DO YOU WANT TO MAKE?</h3>
+     <b><FONT COLOR="490094">Desired Amount:</FONT></b> <span><input type="number" placeholder="Total kilos" name="desiredAmount" ng-model="chocolateRequest.desiredAmount"/></span>&nbsp  {{chocolateRequest.desiredAmount * 1}} kilos <br><br>
+    <span>  <input type="button" ng-click="makeChocolate()" value="Make Chocolate"/></span>
+
+</div>
+
+     <div style="position: relative; float: right; width: 40%; border: 2px solid black;padding: 20px;">
+                         <center><h3>CHOCOLATE INVENTORY</h3></center><br><br>
+
+         <ul>
+         <div ng-repeat="chocIndex in makeArray(chocolateRequest.bigBars)">
+             <div class="choc-big-bar">{{chocIndex + 1}}</div>
+         </div>
+         <div ng-repeat="chocIndex in makeArray(chocolateRequest.smallBars)">
+             <div class="choc-small-bar">{{chocIndex + 1}}</div>
+         </div>
+         </li>
+     </ul>
+
+     </div>
+
+    <div style="position: relative; float:right; width: 40%; border: 2px solid black;padding: 20px;">
+                 <center><h3>MADE CHOCOLATE</h3></center>
+        <center> <h4><b> <FONT COLOR="RED"> {{notEnough}} <br><br></FONT></b></h4></center>
+        <center>  <h4> Big Bars Used:{{usedBigBars}}&emsp; Small Bars Used:{{usedSmallBars}}</h4></center>
+         <ul>
+             <div ng-repeat="chocIndex in makeArray(usedBigBars)">
+                 <div class="choc-big-bar">{{chocIndex + 1}}</div>
+                 </div>
+                 <div ng-repeat="chocIndex in makeArray(usedSmallBars)">
+                     <div class="choc-small-bar">{{chocIndex + 1}}</div>
+                </div>
+             </li>
+         </ul>
+     </div>
+
+</body>
+</html>
